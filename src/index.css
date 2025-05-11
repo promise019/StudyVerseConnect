@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+.typing {
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    color:black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    animation: typing 5s steps(30) forwards, blink 0.7s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 29ch; } /* Adjust character count */
+  }
+  
+  @keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: black; }
+  }

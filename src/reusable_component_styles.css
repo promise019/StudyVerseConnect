@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+.login-signup-page{
+    @apply bg-black text-white flex justify-center p-4 h-screen
+}
+
+.registration-form{
+    @apply w-full grid space-y-4 h-[fit-content] mt-18 md:w-[70%] lg:w-[55%] xl:w-[30%]
+}
+
+.reg-input{
+    @apply p-3 border rounded-lg
+}
+
+input::placeholder{
+    @apply text-gray-400
+}
+

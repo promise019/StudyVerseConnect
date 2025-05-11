@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="190mm"
+   height="90mm"
+   viewBox="0 0 190 90"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="StudyVerse1.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     height="90mm"
+     inkscape:zoom="0.47"
+     inkscape:cx="396.80851"
+     inkscape:cy="426.59574"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     width="190mm" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g5676"
+       transform="translate(-7.4083337,-57.15003)">
+      <path
+         sodipodi:type="star"
+         style="fill:#ffff00;fill-rule:evenodd"
+         id="path31"
+         inkscape:flatsided="false"
+         sodipodi:sides="12"
+         sodipodi:cx="207.91389"
+         sodipodi:cy="89.725006"
+         sodipodi:r1="519.40607"
+         sodipodi:r2="259.70303"
+         sodipodi:arg1="0.82848956"
+         sodipodi:arg2="1.0902889"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 559.02699,472.48114 327.95622,320.0194 320.60869,596.75809 196.7264,349.18696 51.993908,585.17593 68.494266,308.8319 -174.84224,440.8381 -22.380494,209.76733 -299.11919,202.4198 -51.548059,78.537515 -287.53703,-66.194981 -11.193003,-49.694622 -143.1992,-293.03113 l 231.070769,152.46175 7.347532,-276.7387 123.882289,247.57113 144.73249,-235.98897 -16.50036,276.34403 243.33651,-132.0062 -152.46175,231.07077 276.7387,7.347533 L 467.37585,100.9125 703.36482,245.64499 427.02079,229.14463 Z"
+         transform="matrix(0.07325168,0,0,0.07325168,132.29724,95.773968)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.8962px;line-height:1.25;font-family:'Tibetan Machine Uni';-inkscape-font-specification:'Tibetan Machine Uni';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.451504"
+         x="22.094435"
+         y="79.498535"
+         id="text401"
+         transform="scale(0.72329519,1.3825614)"><tspan
+           sodipodi:role="line"
+           id="tspan399"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.8962px;font-family:Timmana;-inkscape-font-specification:Timmana;stroke-width:0.451504"
+           x="22.094435"
+           y="79.498535">StudyVerse - Connect</tspan></text>
+    </g>
+  </g>
+</svg>
