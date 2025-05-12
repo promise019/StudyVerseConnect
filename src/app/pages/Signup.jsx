@@ -87,7 +87,7 @@ export default function SignUpPage() {
             createUserWithEmailAndPassword(auth, userData.email, userData.password)
             .then((userCredential)=>{
                 const user = userCredential.user
-                localStorage.setItem('Study-verse-signup', JSON.stringify(user))
+                localStorage.setItem('Study-verse-signup', user.uid)
                 console.log(user)
                 setIsloading(false)
 
@@ -134,7 +134,8 @@ export default function SignUpPage() {
                 email:user.email
               }
 
-              localStorage.setItem('Study-verse-signup', JSON.stringify(user))
+              localStorage.setItem('Study-verse-signup', user.uid)
+              localStorage.setItem('Study-verse-login', user.uid)
               const docRef = doc(db, 'users', user.uid)
                     setDoc(docRef, user_info)
                     .then(()=>{

@@ -9,3 +9,14 @@ export default function InputComponent({type, placeholder, className, value, onC
         />
     )
 }
+
+export function TextAreaComponent({type, placeholder, className, value, onChange, name}) {
+    return (
+        <textarea
+         className={className}
+         onChange={onChange}
+         value={value}
+         placeholder={placeholder}
+        />
+    )
+}

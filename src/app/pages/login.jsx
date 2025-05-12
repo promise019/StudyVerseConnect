@@ -69,9 +69,10 @@ export default function LoginPage() {
             .catch((error)=>{
                 setIsloading(false)
                 const error_code = error.code
+                console.log(error_code)
                 if (error_code ==="auth/invalid-credential") {
                     toast.error("incorrect email or password")
-                } else if (error_code ==="auth/user-not-found") {
+                } else if (error_code === "auth/user-not-found") {
                     toast.error("user does not exist")
                 } else {
                     toast.error('error')
@@ -86,7 +87,9 @@ export default function LoginPage() {
         signInWithPopup(auth, provider)
         .then((result)=>{
             setIsloading(false)
-            
+            const user = result.user
+            localStorage.setItem('Study-verse-login', user.uid)
+            navigate('/homepage')
         })
         .catch(error=>{
             setIsloading(false)

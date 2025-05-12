@@ -18,3 +18,27 @@
     0%, 100% { border-color: transparent; }
     50% { border-color: black; }
   }
+
+.lightmode{
+  @apply bg-gray-100 text-black
+}
+
+.darkmode{
+  @apply bg-gray-800 text-gray-700
+}
+
+.navigation{
+  @apply bg-gray-300 rounded-lg flex justify-between p-2
+}
+
+.nav{
+  @apply w-[fit-content] p-1 rounded-lg lg:w-[25%] lg:text-center
+}
+
+.nav-active{
+  @apply bg-white
+}
+
+.nav-not-active{
+  @apply bg-inherit
+}
