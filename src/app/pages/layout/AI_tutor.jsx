@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import InputComponent, { TextAreaComponent } from "../../../components/InputComponent"
 import Button_Component from "../../../components/ButtonsComponent"
 import { AuthContext } from "../../Context/AuthContext";
+import send from '../../../assets/icons/Send it.svg'
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify'
 
@@ -66,7 +67,6 @@ export default function AI_Tutor() {
 
     //send message to firestore
     async function postMessages(message, from) {
-        setChatloading(true)
         try {
             const messagesRef = collection(db, 'users', isLoggedIn, 'chats');
             await addDoc(messagesRef, {
@@ -145,38 +145,44 @@ export default function AI_Tutor() {
         <div className="overflow-y-clip">
             <ToastContainer/>
 
-            {/* {JSON.stringify(result)} */}
-            <div className="chat-messages pb-20 space-y-3">
+            <div className="chat-messages pb-20 space-y-6 flex flex-col items-start">
                 {chat.map(msg => (
-                    <div key={msg.id} className={`message p-2 rounded-lg w-[fit-content]  ${msg.from === 'user' ? 'bg-green-400 ' : 'bg-white text-left'}`}>
-                        <p className="">{msg.text}</p>
-                        {console.log(msg.id)}
-                        <button onClick={()=> deleteMessage(msg.id)}>
-                            delete
-                        </button>
-                    </div>
+                   <div
+                   key={msg.id}
+                   className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} w-full`}
+                 >
+                   <div
+                     className={`message p-4 rounded-lg w-fit max-w-[80%] ${
+                       msg.from === 'user' ? 'bg-green-500 text-white' : 'bg-white text-black'
+                     }`}
+                   >
+                     <p>{msg.text}</p>
+                     <button onClick={() => deleteMessage(msg.id)} className="text-xs text-red-500">delete</button>
+                   </div>
+                 </div>
                 ))}
 
-                {chatloading && <div className="flex justify-center">
-                <SpiningLoader/>
+                {chatloading &&<div className="flex justify-center w-full">
+                    <SpiningLoader/>
                 </div>}
+                {chatloading}
             </div>
 
              
             
-            <form className="w-screen px-2 py-2 flex justify-between fixed bottom-0 left-0 bg-gray-200 md:px-30 xl:px-32">
+            <form className="w-screen px-2 py-2 flex justify-between fixed bottom-0 left-0 bg-gray-200 md:px-30 xl:px-58">
                 <TextAreaComponent
                  value={searchValue}
                  onChange={(e)=> setSearchValue(e.target.value)}
                  placeholder='send a message'
-                 className='p-2 rounded-xl border w-[83%] resize-none h-11'
+                 className='p-2 rounded-xl border w-[87%] resize-none h-11'
                 />
 
                 <Button_Component
                  onclick={(e)=>handle_Submit_prompt(e)}
-                 className='p-2 rounded-xl w-[16%] bg-green-500 text-white font-bold text-center'
+                 className='p-2 rounded-full bg-green-500 text-white font-bold text-center flex justify-center'
                 >
-                    {isloading ? '...' : 'Send'}
+                    {isloading ? '...' : <img src={send} className="w-8"/>}
                 </Button_Component>
             </form>
         </div>
