@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { Outlet } from "react-router";
 import NavigationBar from "./layout/NavigationBar";
 
 export default function HomePage() {

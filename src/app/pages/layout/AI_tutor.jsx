@@ -170,12 +170,12 @@ export default function AI_Tutor() {
 
              
             
-            <form className="w-screen px-2 py-2 flex justify-between fixed bottom-0 left-0 bg-gray-200 md:px-30 xl:px-58">
+            <form className="w-screen px-2 py-2 flex space-x-2 justify-between fixed bottom-0 left-0 bg-gray-200 md:px-30 xl:px-58">
                 <TextAreaComponent
                  value={searchValue}
                  onChange={(e)=> setSearchValue(e.target.value)}
                  placeholder='send a message'
-                 className='p-2 rounded-xl border w-[87%] resize-none h-11'
+                 className='p-2 rounded-xl border w-[87%] resize-none h-11 w-full'
                 />
 
                 <Button_Component
