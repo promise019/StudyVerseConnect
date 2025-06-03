@@ -10,7 +10,7 @@ import close from '../../../assets/icons/Close.svg'
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
-import { getFirestore, addDoc, doc, collection, collectionGroup } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, collection, collectionGroup, query, where, getDocs  } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -31,7 +31,7 @@ const db = getFirestore(app)
 
 export default function Find_buddies() {
     const [subjectFocus, setSubjectFocus] = useState('')
-    const [result, setResult] = useState()
+    const [result, setResult] = useState([])
 
     const {preferredStyle, showDropDown, setShowDropDown} = useContext(DropDownContext)
     const {isLoggedIn} = useContext(AuthContext)
@@ -68,20 +68,25 @@ export default function Find_buddies() {
         }
     }
 
-    function handleFind_Buddies(e) {
-        e.preventDefault()
-
-        if (subjectFocus.trim() === '') {
-            return 
-        } else {
-            let docRef = collection(db, 'users', isLoggedIn, 'preferred subject')
-            addDoc(docRef, {subject:subjectFocus, preferredStyle:preferredStyle})
-            .then(()=>{
-                 toast.success('subject added to profile')
-                findBuddies(subjectFocus, isLoggedIn)})
-            .catch(()=> toast.success('error addin subject to profile'))
+    async function handleFind_Buddies(e) {
+        e.preventDefault();
+      
+        if (subjectFocus.trim() === '') return;
+      
+        const docRef = doc(db, 'users', isLoggedIn, 'preferred subject', 'current');
+      
+        try {
+          await setDoc(docRef, {
+            subject: subjectFocus,
+            preferredStyle: preferredStyle
+          });
+      
+          toast.success('Subject added to profile');
+          findBuddies(subjectFocus, isLoggedIn);
+        } catch (err) {
+          toast.error('Error adding subject to profile');
         }
-    }
+      }
 
     return (
         <div className="space-y-8 lg:flex lg:space-x-15 ">
