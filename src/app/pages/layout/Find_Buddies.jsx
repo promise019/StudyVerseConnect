@@ -139,7 +139,7 @@ export default function Find_buddies() {
                     Study Buddy Matches
                 </h1>
 
-                {result.length === 0 ?
+                {result?.length === 0 ?
                     <>
                         <p className="text-gray-700 md:text-center">
                           Fill in your profile details to see potential study partners 
