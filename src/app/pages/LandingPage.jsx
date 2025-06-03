@@ -36,6 +36,8 @@ export default function LandingPage() {
             navigate('/login')
         } else if (!signUpData && !isLoggedIn) {
             navigate('/signup')
+        } else if (signUpData && isLoggedIn) {
+            navigate('/login')
         }
     }
 
