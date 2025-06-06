@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import InputComponent, { TextAreaComponent } from "../../../components/InputComponent"
 import Button_Component from "../../../components/ButtonsComponent"
 import { AuthContext } from "../../Context/AuthContext";
@@ -141,13 +141,22 @@ export default function AI_Tutor() {
         }
     }
 
+    //scroll into view
+    const scrollRef = useRef(null)
+
+    useEffect(()=>{
+        if (scrollRef.current) {
+            scrollRef.current.scrollIntoView({behavior:"smooth"})
+        }
+    },[chat])
+
     return (
         <div className="overflow-y-clip">
             <ToastContainer/>
 
             <div className="chat-messages pb-20 space-y-6 flex flex-col items-start">
                 {chat.map(msg => (
-                   <div
+                   <div ref={scrollRef}
                    key={msg.id}
                    className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} w-full`}
                  >
@@ -175,7 +184,7 @@ export default function AI_Tutor() {
                  value={searchValue}
                  onChange={(e)=> setSearchValue(e.target.value)}
                  placeholder='send a message'
-                 className='p-2 rounded-xl border w-[87%] resize-none h-11 w-full'
+                 className='p-2 rounded-xl border w-[87%] resize-none h-11 '
                 />
 
                 <Button_Component
