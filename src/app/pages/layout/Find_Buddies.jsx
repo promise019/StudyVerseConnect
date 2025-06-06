@@ -6,11 +6,11 @@ import DropDown from "../../../components/DropDownComponent";
 import { DropDownContext } from "../../Context/DropDownContext";
 import arrowDown from '../../../assets/icons/Arrow down.svg'
 import close from '../../../assets/icons/Close.svg'
-
+import profileImage from '../../../assets/images/profile image.jpg'
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
-import { getFirestore, setDoc, doc, collection, collectionGroup, query, where, getDocs  } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs  } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -39,50 +39,49 @@ export default function Find_buddies() {
 
     async function findBuddies(subjectFocus, currentUserId) {
         try {
-            // Query all "preferred subject" subcollections across users
             const q = query(
-                collectionGroup(db, 'preferred subject'),
-                where('subject', '==', subjectFocus)
+                collection(db, 'users',),
+                where('subject', '==', subjectFocus.toUpperCase())
             );
-
+    
             const querySnapshot = await getDocs(q);
-
-            const matches = [];
-
-            querySnapshot.forEach((docSnap) => {
-                // Get the full path: e.g., "users/abc123/preferred subject/xyz"
-                const path = docSnap.ref.path;
-                const segments = path.split('/');
-                const userId = segments[1]; // "abc123"
-
-                // Avoid including the current user
-                if (userId !== currentUserId) {
-                    matches.push({ userId, ...docSnap.data() });
-                }
+            const results = querySnapshot.docs
+            .filter(docSnap => docSnap.id !== currentUserId)
+                .map(docSnap => {
+                    const data = docSnap.data();
+                    return {
+                        userId: docSnap.id,
+                        name: data.name || "Unknown",
+                        email:data.email,
+                        subject: data.subject,
+                        preferredStyle: data.preferredStyle || "Not specified"
+                    };
             });
 
-            setResult(matches);
+            setResult(results);
+
         } catch (err) {
             console.error("Error finding buddies:", err);
-            toast.error('Error finding study buddies');
+            toast.error('couldnt find study buddies');
         }
     }
+    
 
     async function handleFind_Buddies(e) {
         e.preventDefault();
       
         if (subjectFocus.trim() === '') return;
       
-        const docRef = doc(db, 'users', isLoggedIn, 'preferred subject', 'current');
+        const docRef = doc(db, 'users', isLoggedIn);
       
         try {
           await setDoc(docRef, {
-            subject: subjectFocus,
+            subject: subjectFocus.toUpperCase(),
             preferredStyle: preferredStyle
-          });
+          }, {merge:true});
       
           toast.success('Subject added to profile');
-          findBuddies(subjectFocus, isLoggedIn);
+          await findBuddies(subjectFocus, isLoggedIn);
         } catch (err) {
           toast.error('Error adding subject to profile');
         }
@@ -162,7 +161,25 @@ export default function Find_buddies() {
 
                     :
 
-                    JSON.stringify(result)
+                    result.map(users=>
+                        <div key={users.userId} className="space-x-2">
+                            <img src={profileImage} alt="user photo"
+                             className="w-12 border inline-block border-gray-200 rounded-full float-left"
+                            />
+
+                            <div className="inline-block">
+                                <h1 className="font-bold truncate">
+                                    {users.name}
+                                </h1>
+
+                                <h2>{users.email}</h2>
+                            </div>
+
+                            <button className="bg-blue-600 font-bold text-white p-2 rounded-lg float-right">
+                                connect
+                            </button>
+                        </div>
+                    )
                 }
 
             </section>
