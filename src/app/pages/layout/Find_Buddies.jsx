@@ -13,6 +13,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth
 import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs  } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
+import { SpiningLoader } from "../../../components/loadingComponent";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDxXqsxgKBrpGvdOmatNhGVPNfXyedv9JQ",
@@ -33,6 +34,9 @@ export default function Find_buddies() {
     const [subjectFocus, setSubjectFocus] = useState('')
     const [result, setResult] = useState([])
 
+    const [isloading, setIsloading] = useState(false)
+    const [hasSearched, setHasSearched] = useState(false)
+
     const {preferredStyle, showDropDown, setShowDropDown} = useContext(DropDownContext)
     const {isLoggedIn} = useContext(AuthContext)
 
@@ -43,6 +47,7 @@ export default function Find_buddies() {
                 collection(db, 'users',),
                 where('subject', '==', subjectFocus.toUpperCase().trim())
             );
+            setIsloading(false)
     
             const querySnapshot = await getDocs(q);
             const results = querySnapshot.docs
@@ -62,6 +67,7 @@ export default function Find_buddies() {
 
         } catch (err) {
             console.error("Error finding buddies:", err);
+            setIsloading(false)
             toast.error('couldnt find study buddies');
         }
     }
@@ -72,9 +78,11 @@ export default function Find_buddies() {
       
         if (subjectFocus.trim() === '') return;
       
+        setIsloading(true)
         const docRef = doc(db, 'users', isLoggedIn);
       
         try {
+
           await setDoc(docRef, {
             subject: subjectFocus.toUpperCase().trim(),
             preferredStyle: preferredStyle
@@ -82,6 +90,7 @@ export default function Find_buddies() {
       
           toast.success('Subject added to profile');
           await findBuddies(subjectFocus, isLoggedIn);
+          setHasSearched(true)
         } catch (err) {
           toast.error('Error adding subject to profile');
         }
@@ -90,6 +99,7 @@ export default function Find_buddies() {
     return (
         <div className="space-y-8 lg:flex lg:space-x-3">
             <ToastContainer/>
+
             <form className="grid space-y-1 px-5 py-7 rounded-xl shadow bg-white">
                 <h1 className="font-bold text-2xl text-center mb-6">
                     Create your study profile
@@ -134,7 +144,7 @@ export default function Find_buddies() {
                 >
                     <img src={search} className="w-5" />
 
-                    Find Matches And Activate AI
+                    {isloading ? 'finding buddies......' : 'Find Matches And Activate AI'}
                 </Button_Component>
             </form>
 
@@ -143,7 +153,14 @@ export default function Find_buddies() {
                     Study Buddy Matches
                 </h1>
 
-                {result?.length === 0 ?
+                {result?.length === 0 && hasSearched ? 
+                    <p className="text-gray-700 text-center">
+                        sorry bud, but no matches for this subject
+                    </p>
+
+                    :
+                    
+                 result?.length === 0 ?(
                     <>
                         <p className="text-gray-700 md:text-center">
                           Fill in your profile details to see potential study partners 
@@ -157,7 +174,7 @@ export default function Find_buddies() {
                                 Fill in your profile details to see potential study partners 
                             </p>
                         </div>
-                    </>
+                    </>)
 
                     :
 
