@@ -41,7 +41,7 @@ export default function Find_buddies() {
         try {
             const q = query(
                 collection(db, 'users',),
-                where('subject', '==', subjectFocus.toUpperCase())
+                where('subject', '==', subjectFocus.toUpperCase().trim())
             );
     
             const querySnapshot = await getDocs(q);
@@ -76,7 +76,7 @@ export default function Find_buddies() {
       
         try {
           await setDoc(docRef, {
-            subject: subjectFocus.toUpperCase(),
+            subject: subjectFocus.toUpperCase().trim(),
             preferredStyle: preferredStyle
           }, {merge:true});
       
@@ -88,7 +88,7 @@ export default function Find_buddies() {
       }
 
     return (
-        <div className="space-y-8 lg:flex lg:space-x-15 ">
+        <div className="space-y-8 lg:flex lg:space-x-3">
             <ToastContainer/>
             <form className="grid space-y-1 px-5 py-7 rounded-xl shadow bg-white">
                 <h1 className="font-bold text-2xl text-center mb-6">
@@ -138,7 +138,7 @@ export default function Find_buddies() {
                 </Button_Component>
             </form>
 
-            <section className="space-y-3 px-5 py-3 rounded-xl shadow bg-white xl:w-[70%] lg:py-5">
+            <section className="space-y-3 px-3 py-3 rounded-xl shadow bg-white xl:w-[70%] lg:py-5">
                 <h1 className="font-bold text-2xl text-center lg:mt-0">
                     Study Buddy Matches
                 </h1>
@@ -162,20 +162,20 @@ export default function Find_buddies() {
                     :
 
                     result.map(users=>
-                        <div key={users.userId} className="space-x-2">
+                        <div key={users.userId} className="pt-2 px-1 space-x-2 space-y-4 border border-gray-200 rounded-md">
                             <img src={profileImage} alt="user photo"
-                             className="w-12 border inline-block border-gray-200 rounded-full float-left"
+                             className="w-[13%] sm:w-12 border inline-block border-gray-200 rounded-full float-left"
                             />
 
-                            <div className="inline-block">
+                            <div className="inline-block w-[52%]">
                                 <h1 className="font-bold truncate">
                                     {users.name}
                                 </h1>
 
-                                <h2>{users.email}</h2>
+                                <h2 className="truncate">{users.email}</h2>
                             </div>
 
-                            <button className="bg-blue-600 font-bold text-white p-2 rounded-lg float-right">
+                            <button className="w-[28%] bg-blue-600 font-bold text-white p-2 rounded-lg float-right">
                                 connect
                             </button>
                         </div>
