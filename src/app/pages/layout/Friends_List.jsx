@@ -39,6 +39,8 @@ export default function Friends() {
   const { isLoggedIn } = useContext(AuthContext);
   const [selectedUser, setSelectedUser] = useState({});
 
+  const [mobileChatBox, setMobileChatBox] = useState(false);
+
   async function getFriendlist() {
     setIsloading(true);
     try {
@@ -69,13 +71,15 @@ export default function Friends() {
           //   <Link to={`friend_lists/${_friends.userId}`}>
           <div
             key={_friends.userId}
-            onClick={() =>
+            onClick={() => {
               setSelectedUser({
                 id: _friends.userId,
                 username: _friends.name,
                 Image: profileImage,
-              })
-            }
+              });
+
+              setMobileChatBox(true);
+            }}
             className='flex space-x-3 p-2 border-b border-gray-200'
           >
             <img
@@ -92,7 +96,11 @@ export default function Friends() {
         ))}
       </div>
 
-      <ChatBox selectedUser={selectedUser} />
+      <ChatBox
+        selectedUser={selectedUser}
+        onBack={() => setMobileChatBox(!mobileChatBox)}
+        mobileChatBox={mobileChatBox}
+      />
     </div>
   );
 }
