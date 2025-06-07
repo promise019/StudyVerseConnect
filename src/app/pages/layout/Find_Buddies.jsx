@@ -118,6 +118,7 @@ export default function Find_buddies() {
       await addDoc(docRef, {
         name: friendId.name,
         email: friendId.email,
+        userId: friendId.userId,
       });
 
       toast.success("connected to buddy");
