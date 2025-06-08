@@ -45,9 +45,9 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
   const { isLoggedIn } = useContext(AuthContext);
 
   const generateChatId =
-    isLoggedIn > selectedUser.username
-      ? isLoggedIn + selectedUser.username
-      : selectedUser.username + isLoggedIn;
+    isLoggedIn > selectedUser.id
+      ? isLoggedIn + selectedUser.id
+      : selectedUser.id + username.id;
 
   async function sendMessage(e) {
     if (Message.trim() === "") return;
