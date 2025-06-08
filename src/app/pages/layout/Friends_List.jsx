@@ -66,41 +66,49 @@ export default function Friends() {
 
   return (
     <div className='lg:h-[80vh]'>
-      <div className='lg:w-[30%] lg:float-left lg:inline-block overflow-y-auto'>
-        {friends.map((_friends) => (
-          //   <Link to={`friend_lists/${_friends.userId}`}>
-          <div
-            key={_friends.userId}
-            onClick={() => {
-              setSelectedUser({
-                id: _friends.userId,
-                username: _friends.name,
-                Image: profileImage,
-              });
+      {friends.length == 0 ? (
+        <h1 className='text-center font-bold'>
+          Find buddies to make Friendlists
+        </h1>
+      ) : (
+        <>
+          {" "}
+          <div className='lg:w-[30%] lg:float-left lg:inline-block overflow-y-auto'>
+            {friends.map((_friends) => (
+              //   <Link to={`friend_lists/${_friends.userId}`}>
+              <div
+                key={_friends.userId}
+                onClick={() => {
+                  setSelectedUser({
+                    id: _friends.userId,
+                    username: _friends.name,
+                    Image: profileImage,
+                  });
 
-              setMobileChatBox(true);
-            }}
-            className='flex space-x-3 p-2 border-b border-gray-200'
-          >
-            <img
-              src={profileImage}
-              alt='user image'
-              className='w-10 inline-block rounded-full'
-            />
-            <div className=''>
-              <h1 className='font-bold '>{_friends.name}</h1>
-              <h1 className='truncate'>current message</h1>
-            </div>
+                  setMobileChatBox(true);
+                }}
+                className='flex space-x-3 p-2 border-b border-gray-200'
+              >
+                <img
+                  src={profileImage}
+                  alt='user image'
+                  className='w-10 inline-block rounded-full'
+                />
+                <div className=''>
+                  <h1 className='font-bold '>{_friends.name}</h1>
+                  <h1 className='truncate'>current message</h1>
+                </div>
+              </div>
+              //   </Link>
+            ))}
           </div>
-          //   </Link>
-        ))}
-      </div>
-
-      <ChatBox
-        selectedUser={selectedUser}
-        onBack={() => setMobileChatBox(!mobileChatBox)}
-        mobileChatBox={mobileChatBox}
-      />
+          <ChatBox
+            selectedUser={selectedUser}
+            onBack={() => setMobileChatBox(!mobileChatBox)}
+            mobileChatBox={mobileChatBox}
+          />
+        </>
+      )}
     </div>
   );
 }
