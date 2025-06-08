@@ -47,10 +47,12 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
   const generateChatId =
     isLoggedIn > selectedUser.id
       ? isLoggedIn + selectedUser.id
-      : selectedUser.id + selectedUser.id;
+      : selectedUser.id + isLoggedIn;
 
   async function sendMessage(e) {
     if (Message.trim() === "") return;
+
+    setMessage("");
     try {
       const MessageRef = collection(db, "chats", generateChatId, "messages");
       await addDoc(MessageRef, {
@@ -58,7 +60,6 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
         timestamp: serverTimestamp(),
         from: isLoggedIn,
       });
-      setMessage("");
     } catch (error) {
       setMessage("");
       toast.error("unable to send message");
