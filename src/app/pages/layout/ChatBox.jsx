@@ -144,7 +144,7 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
                 } w-full`}
               >
                 <div
-                  className={`message p-4 rounded-lg w-fit max-w-[80%] ${
+                  className={`message p-4 rounded-lg break-words max-w-[80%] ${
                     msg.from === isLoggedIn
                       ? "bg-green-500 text-white"
                       : "bg-white text-black"
