@@ -78,8 +78,9 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
   }
 
   useEffect(() => {
-    const messagesRef = collection(db, "chats", generateChatId, "messages");
+    if (!generateChatId) return;
 
+    const messagesRef = collection(db, "chats", generateChatId, "messages");
     const q = query(messagesRef, orderBy("timestamp"));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -91,7 +92,7 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
     });
 
     return () => unsubscribe();
-  });
+  }, [generateChatId]);
 
   async function deleteMessage(messageId) {
     console.log(messageId);
@@ -133,7 +134,7 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
             <h1 className='inline-block'>{selectedUser.username}</h1>
           </header>
 
-          <div className='space-y-3 flex flex-col items-start overflow-y-scroll'>
+          <div className='overflow-y-auto space-y-2 h-[83vh] overflow-x-hidden md:h-[87vh] lg:h-[68vh] p-2'>
             {chat.map((msg) => (
               <div
                 ref={scrollRef}
@@ -161,11 +162,11 @@ export default function ChatBox({ selectedUser, mobileChatBox, onBack }) {
             ))}
           </div>
 
-          <footer className='fixed bottom-0 flex space-x-3 bg-gray-300 pl-2.5 py-2 w-screen -ml-2 md:w-[87%] lg:-ml-3 lg:w-[56%] xl:w-[46%]'>
+          <footer className='fixed bottom-0 flex space-x-3 bg-gray-300 pl-2.5 py-2 w-screen -ml-2 md:w-[87%] lg:-ml-3 lg:w-[56%] xl:w-[45.5%]'>
             <textarea
               value={Message}
               onChange={(e) => setMessage(e.target.value)}
-              className='resize-none border border-gray-400 h-11 p-2 rounded-lg w-[97%] lg:w-[89%]'
+              className='w-[87%] h-12 p-2 rounded-lg border border-gray-500 resize-none focus:outline-none'
               placeholder='send a message'
             />
             <Button_Component
